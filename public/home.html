@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Attendance Form</title>
+</head>
+<body>
+    <h1>Attendance Form</h1>
+    <form action="" method="POST"> <!-- Action needs to be implemented -->
+        <label for="professor_id">Professor ID:</label>
+        <input type="text" name="professor_id" id="professor_id" required><br><br>
+
+        <label for="event_type">Event Type:</label>
+        <select name="event_type" id="event_type" required>
+            <option value="Seminar">Lecture</option>
+            <option value="Workshop">Workshop</option>
+            <option value="Faculty Development Program">Faculty Development Program</option>
+            <option value="Conference">Conference</option>
+        </select><br><br>
+
+        <label for="event_date">Event Date:</label>
+        <input type="date" name="event_date" id="event_date" required><br><br>
+
+        <label for="event_name">Event Name:</label>
+        <input type="text" name="event_name" id="event_name" required><br><br>
+
+        <label for="location">Location:</label>
+        <input type="text" name="location" id="location"><br><br>
+
+        <label for="organizer">Organizer:</label>
+        <input type="text" name="organizer" id="organizer"><br><br>
+
+        <label for="duration_minutes">Duration (in minutes):</label>
+        <input type="number" name="duration_minutes" id="duration_minutes"><br><br>
+
+        <label for="feedback">Feedback:</label><br>
+        <textarea name="feedback" id="feedback" rows="4" cols="50"></textarea><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
