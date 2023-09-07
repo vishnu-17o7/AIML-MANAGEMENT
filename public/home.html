@@ -1,40 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Page Title</title>
-    <link rel="stylesheet" href="home.css">
+    <title>Attendance Form</title>
 </head>
 <body>
-    <div class="container">
-        <h1 class="title">Page Title</h1>
-        <div class="button-container">
-            <div class="button">
-                <button>Button 1</button>
-                <p>Button 1 Description</p>
-            </div>
-            <div class="button">
-                <button>Button 2</button>
-                <p>Button 2 Description</p>
-            </div>
-            <div class="button">
-                <button>Button 3</button>
-                <p>Button 3 Description</p>
-            </div>
-            <div class="button">
-                <button>Button 4</button>
-                <p>Button 4 Description</p>
-            </div>
-            <div class="button">
-                <button>Button 5</button>
-                <p>Button 5 Description</p>
-            </div>
-            <div class="button">
-                <button>Button 6</button>
-                <p>Button 6 Description</p>
-            </div>
-        </div>
-    </div>
+    <h1>Attendance Form</h1>
+    <form action="" method="POST"> <!-- Action needs to be implemented -->
+        <label for="professor_id">Professor ID:</label>
+        <input type="text" name="professor_id" id="professor_id" required><br><br>
+
+        <label for="event_type">Event Type:</label>
+        <select name="event_type" id="event_type" required>
+            <option value="Seminar">Lecture</option>
+            <option value="Workshop">Workshop</option>
+            <option value="Faculty Development Program">Faculty Development Program</option>
+            <option value="Conference">Conference</option>
+        </select><br><br>
+
+        <label for="event_date">Event Date:</label>
+        <input type="date" name="event_date" id="event_date" required><br><br>
+
+        <label for="event_name">Event Name:</label>
+        <input type="text" name="event_name" id="event_name" required><br><br>
+
+        <label for="location">Location:</label>
+        <input type="text" name="location" id="location"><br><br>
+
+        <label for="organizer">Organizer:</label>
+        <input type="text" name="organizer" id="organizer"><br><br>
+
+        <label for="duration_minutes">Duration (in minutes):</label>
+        <input type="number" name="duration_minutes" id="duration_minutes"><br><br>
+
+        <label for="feedback">Feedback:</label><br>
+        <textarea name="feedback" id="feedback" rows="4" cols="50"></textarea><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
 </body>
 </html>
