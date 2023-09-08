@@ -5,14 +5,28 @@ body {
     background-color: #121212;
     color: #fff;
     display: flex;
-    flex-direction: column; /* Stack content vertically */
+    flex-direction: column; 
     justify-content: center;
     align-items: center;
     height: 100vh;
 }
 
+#event_type{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    background-color: #444;
+    color: #fff;
+    border-radius: 5px;
+}
+.attendance-form h1 {
+    margin: 0 0 20px;
+    font-size: 24px;
+}
+
 .attendance-form-container {
-    text-align: center; /* Center the text within the container */
+    text-align: center; 
 }
 
 .attendance-form {
