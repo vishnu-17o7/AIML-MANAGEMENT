@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Attendance Form</title>
+    <link rel="stylesheet" href="home.css">
 </head>
 <body>
     <h1>Attendance Form</h1>
-    <form action="" method="POST"> <!-- Action needs to be implemented -->
+    <form class="attendance-form" action="" method="POST"> <!-- Action needs to be implemented -->
         <label for="professor_id">Professor ID:</label>
         <input type="text" name="professor_id" id="professor_id" required><br><br>
 
@@ -34,8 +36,8 @@
 
         <label for="feedback">Feedback:</label><br>
         <textarea name="feedback" id="feedback" rows="4" cols="50"></textarea><br><br>
-
-        <input type="submit" value="Submit">
+        <button type="submit">Submit</button>
+        
     </form>
 </body>
 </html>
