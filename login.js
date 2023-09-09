@@ -24,6 +24,19 @@ function authenticateUser(username, password, callback) {
   });
 }
 
+function registerUser(username, password, type, callback) {
+  const query = 'INSERT INTO login (username, password, type) VALUES (?, ?, ?)';
+  connection.query(query, [username, password, type], (err) => {
+    if (err) {
+      console.error('Error executing query:', err);
+      callback(err, false);
+      return;
+    }
+    callback(null, true);
+  });
+}
+
 module.exports = {
-  authenticateUser
+  authenticateUser,
+  registerUser
 };

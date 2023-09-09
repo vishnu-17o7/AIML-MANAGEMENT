@@ -5,60 +5,70 @@ body {
     background-color: #121212;
     color: #fff;
     display: flex;
-    flex-direction: column; 
-    justify-content: center;
+    flex-direction: column;
+    justify-content: left;
     align-items: center;
-    height: 100vh;
+    
 }
 
-#event_type{
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: none;
-    background-color: #444;
-    color: #fff;
-    border-radius: 5px;
-}
 .attendance-form h1 {
     margin: 0 0 20px;
     font-size: 24px;
 }
 
-.attendance-form-container {
-    text-align: center; 
-}
-
-.attendance-form {
+/*.attendance-form {
     background-color: #333;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    width: 300px;
+    width: 600px; 
+    display: flex;
+    flex-wrap: wrap;
+}*/
+
+.form-group {
+    flex: 1; /* Distribute equal width to form groups */
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px; /* Add margin between form groups */
 }
 
-.attendance-form input,
-.attendance-form textarea {
-    width: 93%;
+.form-group label {
+    padding-right: 10px;
+    text-align: left;
+    line-height: 1.5;
+    text-align: left;
+}
+
+.form-group select,
+.form-group input,
+.form-group textarea {
     padding: 10px;
-    margin-bottom: 10px;
     border: none;
     background-color: #444;
     color: #fff;
     border-radius: 5px;
+    width: 100%; 
 }
+
+.form-group textarea {
+    resize: none;
+    height: 100px;
+}
+
+
+.attendance-form button:hover {
+    background-color: #0056b3;
+  }
 
 .attendance-form button {
     width: 100%;
-    padding: 10px;
+    padding: 16px;
     background-color: #007bff;
     border: none;
     color: #fff;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
-}
-
-.attendance-form button:hover {
-    background-color: #0056b3;
+    margin-top: 10px;
 }

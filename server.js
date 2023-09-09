@@ -30,6 +30,24 @@ app.post('/login', (req, res) => {
         res.send('Login failed');
       }
     });
+ });
+
+  app.post('/register', (req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
+    const type = req.body.userType;
+    login.registerUser(username, password, type, (err, isRegistered) => {
+      if (err) {
+        console.error('Error during registration:', err);
+        res.status(500).send('Internal Server Error');
+        return;
+      }
+      if (isRegistered) {
+        res.sendFile(path.join(__dirname, 'public', 'login.html'));
+      } else {
+        res.send('Registration failed');
+      }
+    });
   });
 
 // Handle GET request for the registration page
