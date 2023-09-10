@@ -8,29 +8,68 @@ body {
     flex-direction: column;
     justify-content: left;
     align-items: center;
+    margin-top: 50px;
     
 }
 
-.attendance-form h1 {
-    margin: 0 0 20px;
+h1{
     font-size: 24px;
+    margin-bottom: 10px;
 }
 
+.container-1{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px;
+    justify-content: center;
+
+}
+.container-2{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px;
+    justify-content: center;
+
+}
+.container-3{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px;
+    justify-content: center;
+
+}
+.container-4{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    margin: 20px;
+    justify-content: space-evenly;
+    
+}
+
+.container-5{
+    display: flex;
+    flex-direction: column;
+    margin-left: 15%;
+    justify-content: center;
+    
+}
 /*.attendance-form {
-    background-color: #333;
+    background-color: #121212;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    width: 600px; 
+    width: 600px;
+    height: 600px;; 
     display: flex;
     flex-wrap: wrap;
 }*/
 
 .form-group {
-    flex: 1; /* Distribute equal width to form groups */
+    flex: 1;
     display: flex;
     flex-direction: column;
-    margin-right: 10px; /* Add margin between form groups */
+    margin-right: 10px;
 }
 
 .form-group label {
@@ -38,17 +77,22 @@ body {
     text-align: left;
     line-height: 1.5;
     text-align: left;
+    margin-top: 10px;
 }
 
 .form-group select,
 .form-group input,
 .form-group textarea {
-    padding: 10px;
+    
+    padding: 10x;
     border: none;
+    margin-right: 50px;
     background-color: #444;
     color: #fff;
-    border-radius: 5px;
-    width: 100%; 
+    border-radius: 10px;
+    width: 200px;
+    height: 30px;
+    margin-top: 5px;
 }
 
 .form-group textarea {
@@ -56,13 +100,12 @@ body {
     height: 100px;
 }
 
-
 .attendance-form button:hover {
     background-color: #0056b3;
-  }
+}
 
-.attendance-form button {
-    width: 100%;
+.container-5 button {
+    width: 65%;
     padding: 16px;
     background-color: #007bff;
     border: none;
