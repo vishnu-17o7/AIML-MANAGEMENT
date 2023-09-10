@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const login = require('./login'); // Import the login file/module
+const facultyUpload = require('./facultyUpload');
 
 const app = express();
 const port = 3000;
@@ -25,7 +26,7 @@ app.post('/login', (req, res) => {
       }
   
       if (isAuthenticated) {
-        res.sendFile(path.join(__dirname, 'public', 'home.html'));
+        res.sendFile(path.join(__dirname, 'public', 'facultyUpload.html'));
       } else {
         res.send('Login failed');
       }
@@ -59,6 +60,8 @@ app.get('/registerpage', (req, res) => {
 app.get('/loginpage', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
+
+app.use('/', facultyUpload);
 
 
 app.listen(port, () => {

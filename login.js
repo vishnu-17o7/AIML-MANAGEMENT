@@ -38,5 +38,6 @@ function registerUser(username, password, type, callback) {
 
 module.exports = {
   authenticateUser,
-  registerUser
+  registerUser,
+  connection
 };
