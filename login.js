@@ -1,5 +1,6 @@
 const mysql = require('mysql2');
 
+//Creating connection with the mysql database
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
@@ -7,6 +8,7 @@ const connection = mysql.createConnection({
   database: 'AIML'
 });
 
+//Performing login authentication
 function authenticateUser(username, password, callback) {
   const query = 'SELECT * FROM login WHERE username = ? AND password = ?';
   connection.query(query, [username, password], (err, results) => {
@@ -24,6 +26,7 @@ function authenticateUser(username, password, callback) {
   });
 }
 
+//Registering user in the login database
 function registerUser(username, password, type, callback) {
   const query = 'INSERT INTO login (username, password, type) VALUES (?, ?, ?)';
   connection.query(query, [username, password, type], (err) => {
@@ -36,6 +39,7 @@ function registerUser(username, password, type, callback) {
   });
 }
 
+//Importing module for use in other files
 module.exports = {
   authenticateUser,
   registerUser,

@@ -2,7 +2,7 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const login = require('./login');
-const connection = login.connection;
+const connection = login.connection;//Importing the connection from the login.js file
 
 const router = express.Router();
 const storage = multer.diskStorage({
