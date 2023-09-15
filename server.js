@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
-const login = require('./login'); // Import the login file/module
+const login = require('./login');
+const connection = login.connection; // Import the login file/module
 const facultyUpload = require('./facultyUpload');
 
 const app = express();
@@ -26,7 +27,7 @@ app.post('/login', (req, res) => {
       }
   
       if (isAuthenticated) {
-        res.sendFile(path.join(__dirname, 'public', 'facultyUpload.html'));
+        res.sendFile(path.join(__dirname, 'public', 'facultyHome.html'));
       } else {
         res.send('Login failed');
       }
@@ -66,4 +67,25 @@ app.use('/', facultyUpload);
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
+});
+
+app.get("/api/attendance_records", (req, res) => {
+  const sql = "SELECT * FROM `aiml`.`attendance_records`";
+
+  connection.query(sql, (err, results) => {
+      if (err) {
+          console.error("Error fetching records:", err);
+          res.status(500).json({ error: "Internal Server Error" });
+          return;
+      }
+      res.json(results);
+  });
+});
+
+app.get('/viewRecords', (req, res) => {
+  // Set the Content-Type header to indicate it's a JavaScript file
+  res.setHeader('Content-Type', 'application/javascript');
+
+  // Serve the JavaScript file
+  res.sendFile(path.join(__dirname, 'public', 'viewRecords.js'));
 });

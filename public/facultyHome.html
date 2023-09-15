@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="facultyHome.css">
+    <title>Record Management System</title>
+    <script>
+        // Disable the back button
+        history.pushState(null, null, location.href);
+        window.onpopstate = function () {
+            history.go(1);
+        };
+
+        // Alternatively, you can redirect the user to another page
+        function logout() {
+            // You may want to perform any necessary logout actions here
+            // Redirect the user to the login page after logout
+            window.location.href = "login.html";
+        }
+    </script>
+</head>
+<body>
+    <h1>Welcome to the Record Management System</h1>
+    <div class="container-1">
+        <a href="facultyUpload.html" class="button">Add Record</a>
+        <a href="#" class="button">Edit Record</a>    
+    </div>
+    <div class="container-2">
+        <a href="viewrecords.html" class="button">View Records</a>
+        <a href="javascript:logout();" class="Logout">Logout</a>   
+    </div>
+</body>
+</html>

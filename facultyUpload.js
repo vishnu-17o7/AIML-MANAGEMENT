@@ -53,7 +53,7 @@ router.post('/submit', upload.single('proof'), (req, res) => {
             // Insert was successful
             console.log('Data inserted into the database');
             // Respond to the client with a success message or redirection
-            res.send('File uploaded successfully! <a href="/">Go to Home</a>');
+            res.send('File uploaded successfully! <a href="/facultyHome.html">Go to Home</a>');
         }
     });
 });
