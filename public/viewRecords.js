@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     console.log("DOM loaded and parsed");
-    fetch("/api/attendance_records") // Assuming your server API endpoint is /api/attendance_records
+    fetch("/api/attendance_records")
         .then((response) => response.json())
         .then((data) => {
             const tableBody = document.querySelector("#recordTable tbody");

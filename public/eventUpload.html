@@ -2,12 +2,12 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Attendance Form</title>
+    <title>Add Event</title>
     <link rel="stylesheet" href="facultyUpload.css">
 </head>
 <body>
-    <h1>Attendance Form</h1>
-    <form class="attendance-form" action="/submit" method="POST" enctype="multipart/form-data"> <!-- Action needs to be implemented -->
+    <h1>Event Form</h1>
+    <form class="attendance-form" action="/submitevent" method="POST" enctype="multipart/form-data"> <!-- Action needs to be implemented -->
         <div class="container-1">
             <div class="form-group" id="professor_id">
                 <label for="professor_id">Professor ID:</label>
@@ -36,7 +36,7 @@
                 <input type="text" name="event_name" id="event_name" required>
             </div>
         </div>
-        <!--<div class="container-2">
+        <div class="container-2">
             <div class="form-group">
                 <label for="location">Location:</label>
                 <input type="text" name="location" id="location" required>
@@ -46,8 +46,8 @@
                 <label for="organizer">Organizer:</label>
                 <input type="text" name="organizer" id="organizer">
             </div>
-        </div>-->
-        <div class="container-4">
+        </div>
+        <!--<div class="container-4">
             <div class="form-group">
                 <label for="duration_minutes">Duration (in minutes):</label>
                 <input type="number" name="duration_minutes" id="duration_minutes">
@@ -57,12 +57,13 @@
                 <label for="feedback">Feedback:</label>
                 <textarea name="feedback" id="feedback" rows="4" cols="50"></textarea>
             </div>
-        </div>
+        </div>-->
         <div class="container-5">
             <div class = "upload-file">
-                <label for="proof">Upload PDF Proof :</label>
-                <input type="file" name="proof" id="proof" required accept=".pdf">
+                <label for="proof">Upload Event Invitation :</label>
+                <input type="file" name="invitation" id="invitation" required accept=".pdf">
             </div>
+            
             <div>
                 <button type="submit">Submit</button>
             </div>

@@ -1,14 +1,20 @@
-body {
+body, html {
     margin: 0;
     padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+body {
     font-family: Arial, sans-serif;
-    background-color: #121212;
+    /*background-color: #121212;*/
     color: #fff;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 50px;
-    
+    /*margin-top: 50px;*/
+    background-color: #4e5f64;
+    background-image: linear-gradient(315deg, #2d3436 0%, #000000 74%);
 }
 a {
     text-decoration: none;
@@ -64,4 +70,35 @@ h1{
 }
 .Logout:hover{
     background-color: rgb(238, 113, 113);
+}
+
+nav {
+    background-color: #333;
+    display: flex;
+    flex-direction: row;
+    margin: 20px;
+    justify-content: center;
+    border-radius: 10px;
+    background-color: #2b4162;
+    background-image: linear-gradient(315deg, #2b4162 0%, #1a2230 74%);
+
+}
+
+nav a {
+    float: left; 
+    display: block; 
+    color: white; 
+    text-align: center; 
+    padding: 14px 16px; 
+    text-decoration: none; 
+}
+
+nav h2{
+    justify-content: left;
+}
+nav a:hover {
+    background-color: #ddd;
+    color: black;
+    border-radius: 10px;
+
 }

@@ -83,9 +83,7 @@ app.get("/api/attendance_records", (req, res) => {
 });
 
 app.get('/viewRecords', (req, res) => {
-  // Set the Content-Type header to indicate it's a JavaScript file
   res.setHeader('Content-Type', 'application/javascript');
 
-  // Serve the JavaScript file
   res.sendFile(path.join(__dirname, 'public', 'viewRecords.js'));
 });
