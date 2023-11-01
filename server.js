@@ -12,7 +12,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'login.html'));
+  res.sendFile(path.join(__dirname, 'public', 'register.html'));
 });
 
 app.post('/login', (req, res) => {
