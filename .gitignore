@@ -2,3 +2,6 @@ databaseschema.drawio
 /uploads
 Aiml.sql
 .gitignore
+/Publicationsuploads
+/.vscode
+/node_modules

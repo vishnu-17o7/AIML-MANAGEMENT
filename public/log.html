@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="log.css">
+</head>
+<body>
+  <h2>Log in/Sign up</h2>
+  <div class="container" id="container">
+    <div class="form-container sign-up-container">
+      <form method="post" action="/register">
+        <h1>Sign up</h1>
+        <input type="text" id="username" name="username" placeholder="Student/Faculty ID" required>
+        <input type="password" id="password" name="password" placeholder="Password" required>
+        
+        <!-- Add the "User Type" select input -->
+        
+        <select id="userType" name="userType" required>
+          <option value="" disabled selected>Select an option</option>
+          <option value="student">Student</option>
+          <option value="faculty">Faculty</option>
+        </select>
+        
+        <button type="submit">Sign Up</button>
+      </form>
+    </div>
+    <div class="form-container sign-in-container">
+      <form action="/login" method="post">
+        <h1>Sign in</h1>
+        <span>or use your account</span>
+        <input type="text" id="username" name="username" placeholder="Student/Faculty ID" required>
+        <input type="password" id="password" name="password" placeholder="Password" required>
+        <a href="reset.html">Change your password here</a>
+        <button type="submit">Sign In</button>
+      </form>
+    </div>
+    <div class="overlay-container">
+      <div class="overlay">
+        <div class="overlay-panel overlay-left">
+          <h1>Welcome!</h1>
+          <p>To keep connected with us, please login with your personal info</p>
+          <button class="ghost" id="signIn">Sign In</button>
+        </div>
+        <div class="overlay-panel overlay-right">
+          <h1>Hello!</h1>
+          <p>Empowering Educators - Welcome to CIT Department Portal.
+            Your digital gateway to a smarter, more collaborative Database experience. 
+            Streamline your journey, whether you're a teacher or a student. 
+            Manage publications, store records, and much more. 
+            Join us today for a seamless, interactive, and inspiring education experience!</p>
+           <p> Don't have an Account? Sign up.😇</p>
+          <button class="ghost" id="signUp">Sign Up</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>
+      Created with ❤️ By Us :)
+    </p>
+  </footer>
+
+  <script>
+    const signUpButton = document.getElementById('signUp');
+    const signInButton = document.getElementById('signIn');
+    const container = document.getElementById('container');
+
+    signUpButton.addEventListener('click', () => {
+      container.classList.add("right-panel-active");
+    });
+
+    signInButton.addEventListener('click', () => {
+      container.classList.remove("right-panel-active");
+    });
+  </script>
+</body>
+</html>

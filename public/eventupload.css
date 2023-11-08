@@ -1,4 +1,5 @@
-body, h1, p, ul, li {
+/* Reset some default styles */
+body, h1, form, label, select, input, ul, li {
     margin: 0;
     padding: 0;
 }
@@ -34,36 +35,49 @@ form.attendance-form {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 20px auto 40px;
     max-width: 600px;
+    margin: 20px auto 40px;
+    overflow-x: auto;
 }
 
-.form-group {
+.container-1, .container-2 {
+    width: 90%;
     display: flex;
     flex-direction: column;
-    align-items: center;
     margin: 10px 0;
 }
 
 .form-group label {
     font-weight: bold;
     margin-bottom: 5px;
-    width: 100%;
 }
 
 .form-group input[type="text"],
 .form-group input[type="date"],
 .form-group select,
-.form-group textarea,
-.form-group input[type="file"] {
+.form-group input[type="number"],
+.form-group input[type="file"],
+.form-group textarea {
     width: 100%;
     padding: 10px;
-    margin: 5px -10px;
+    margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
-form input[type="submit"] {
+.form-group select {
+    padding: 10px;
+}
+
+.form-group label {
+    margin-top: 10px;
+}
+
+.upload-file input[type="file"] {
+    margin-top: 10px;
+}
+
+button[type="submit"] {
     background-color: #6c6556;
     color: #fff;
     font-size: 16px;
@@ -76,70 +90,10 @@ form input[type="submit"] {
     text-align: center;
     cursor: pointer;
     transition: background-color 0.3s;
-    width: 100%;
-    margin: 10px 0;
+    margin: 20px 0;
 }
 
-form input[type="submit"]:hover {
+button[type="submit"]:hover {
     background-color: #faefd9;
     color: #6c6556;
-}
-
-.form-group input[type="number"]{
-    width: 100%;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    padding-left: 20px;
-    margin: 5px -10px;
-    align-items: center;
-}
-
-footer {
-    background-color: #222;
-    color: #fff;
-    font-size: 14px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    text-align: center;
-    z-index: 999;
-}
-
-.container-5 button{
-    background-color: #6c6556;
-    color: #fff;
-    font-size: 14px;
-    font-weight: bold;
-    padding: 12px 20px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin: 10px;
-    border: none;
-    border-radius: 20px;
-    text-align: center;
-    text-decoration: none;
-    transition: background-color 0.3s;
-}
-
-.container-5 button:hover{
-    background-color: #faefd9;
-    color: #6c6556;
-}
-
-.container-5{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 10px 0;
-}
-
-footer p {
-    margin: 10px 0;
-}
-
-.form-group textarea{
-    resize: none;
 }

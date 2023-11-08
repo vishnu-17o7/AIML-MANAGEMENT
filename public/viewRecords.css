@@ -1,0 +1,55 @@
+/* attendanceRecords.css */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+    background-image: url('loginf.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+h1 {
+    color: #333;
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 20px; /* Added margin for separation */
+}
+
+table#recordTable {
+    max-width: 80%;
+    background-color: #fff;
+    border-collapse: collapse;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+table#recordTable th, table#recordTable td {
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #ccc;
+}
+
+thead {
+    background-color: #333;
+    color: #fff;
+}
+
+tbody {
+    background-color: #f5f5f5;
+}
+
+/* Hover effect for table rows */
+table#recordTable tbody tr:hover {
+    background-color: #e0e0e0;
+    transition: background-color 0.3s;
+}

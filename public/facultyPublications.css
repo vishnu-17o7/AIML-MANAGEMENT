@@ -1,3 +1,4 @@
+/* Reset some default styles */
 body, h1, p, ul, li {
     margin: 0;
     padding: 0;
@@ -25,7 +26,7 @@ h1 {
     color: #333;
 }
 
-form.attendance-form {
+form {
     background: #fff;
     padding: 20px;
     border-radius: 10px;
@@ -34,31 +35,20 @@ form.attendance-form {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 20px auto 40px;
+    margin: 40px auto 40px;
     max-width: 600px;
 }
 
-.form-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 10px 0;
-}
-
-.form-group label {
+form label {
     font-weight: bold;
-    margin-bottom: 5px;
+    margin-top: 10px;
     width: 100%;
 }
 
-.form-group input[type="text"],
-.form-group input[type="date"],
-.form-group select,
-.form-group textarea,
-.form-group input[type="file"] {
-    width: 100%;
+form input, form select {
+    width: 90%;
     padding: 10px;
-    margin: 5px -10px;
+    margin: 5px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
@@ -76,8 +66,6 @@ form input[type="submit"] {
     text-align: center;
     cursor: pointer;
     transition: background-color 0.3s;
-    width: 100%;
-    margin: 10px 0;
 }
 
 form input[type="submit"]:hover {
@@ -85,14 +73,20 @@ form input[type="submit"]:hover {
     color: #6c6556;
 }
 
-.form-group input[type="number"]{
+form select {
     width: 100%;
+    padding: 10px;
+    margin: 5px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
-    padding: 10px;
-    padding-left: 20px;
-    margin: 5px -10px;
-    align-items: center;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: url('arrow.png') no-repeat right center;
+}
+
+#booksFields, #journalFields {
+    display: none;
 }
 
 footer {
@@ -107,39 +101,6 @@ footer {
     z-index: 999;
 }
 
-.container-5 button{
-    background-color: #6c6556;
-    color: #fff;
-    font-size: 14px;
-    font-weight: bold;
-    padding: 12px 20px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin: 10px;
-    border: none;
-    border-radius: 20px;
-    text-align: center;
-    text-decoration: none;
-    transition: background-color 0.3s;
-}
-
-.container-5 button:hover{
-    background-color: #faefd9;
-    color: #6c6556;
-}
-
-.container-5{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 10px 0;
-}
-
 footer p {
     margin: 10px 0;
-}
-
-.form-group textarea{
-    resize: none;
 }

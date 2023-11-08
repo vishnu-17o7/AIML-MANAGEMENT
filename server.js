@@ -3,16 +3,17 @@ const path = require('path');
 const login = require('./login');
 const connection = login.connection; // Import the login file/module
 const facultyUpload = require('./facultyUpload');
+const facultyPublications = require('./facultyPublications');
+
 
 const app = express();
 const port = 3000;
 
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'register.html'));
+  res.sendFile(path.join(__dirname, 'public', 'log.html'));
 });
 
 app.post('/login', (req, res) => {
@@ -27,7 +28,7 @@ app.post('/login', (req, res) => {
       }
   
       if (isAuthenticated) {
-        res.sendFile(path.join(__dirname, 'public', 'facultyHome.html'));
+        res.redirect('/facultyHome');
       } else {
         res.send('Login failed');
       }
@@ -45,7 +46,7 @@ app.post('/login', (req, res) => {
         return;
       }
       if (isRegistered) {
-        res.sendFile(path.join(__dirname, 'public', 'login.html'));
+        res.sendFile(path.join(__dirname, 'public', 'log.html'));
       } else {
         res.send('Registration failed');
       }
@@ -54,16 +55,20 @@ app.post('/login', (req, res) => {
 
 // Handle GET request for the registration page
 app.get('/registerpage', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'register.html'));
+  res.sendFile(path.join(__dirname, 'public', 'log.html'));
 });
 
 // Handle GET request for the login page
 app.get('/loginpage', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'login.html'));
+  res.sendFile(path.join(__dirname, 'public', 'log.html'));
 });
 
 app.use('/', facultyUpload);
+app.use('/', facultyPublications);
 
+app.get('/facultyHome', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'facultyHome.html'));
+});
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);

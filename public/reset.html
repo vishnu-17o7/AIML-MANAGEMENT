@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Forgot Password</title>
+    <link rel="stylesheet" href="reset.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Forgot Password</h2>
+        <form action= # method="post" id="password-reset-form"> <!-- Added an id to the form for JavaScript reference -->
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">New Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required>
+                <p class="error-message" id="password-error"></p>
+            </div>
+            <button type="submit">Reset Password</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById("password-reset-form").addEventListener("submit", function(event) {
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("confirmPassword").value;
+            var passwordError = document.getElementById("password-error");
+
+            if (password !== confirmPassword) {
+                passwordError.textContent = "Passwords do not match!";
+                event.preventDefault(); // Prevent form submission
+            } else {
+                passwordError.textContent = ""; // Clear the error message
+            }
+        });
+    </script>
+</body>
+</html>

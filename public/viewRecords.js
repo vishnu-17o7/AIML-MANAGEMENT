@@ -1,3 +1,5 @@
+const jsPDF = window.jspdf.jsPDF;
+
 document.addEventListener("DOMContentLoaded", function () {
     console.log("DOM loaded and parsed");
     fetch("/api/attendance_records")
@@ -21,3 +23,15 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .catch((error) => console.error("Error fetching data:", error));
 });
+function exportToPDF() {
+    const pdf = new jsPDF();
+    pdf.autoTable({ html: '#recordTable' });
+    pdf.save('attendance_records.pdf');
+}
+
+function exportToExcel() {
+    $("#recordTable").tableExport({
+        format: 'xlsx',
+        filename: 'attendance_records',
+    });
+}

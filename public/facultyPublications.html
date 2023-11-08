@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Publications</title>
+    <link rel="stylesheet" href="facultyPublications.css">
+</head>
+<body>
+    <h1>Table for Faculty Publications</h1>
+    <form action="" method="post">
+        <label for="PublicationType">Publication Type:</label>
+        <select id="PublicationType" name="PublicationType">
+            <option value="none">Select an option</option>
+            <option value="books">Books</option>
+            <option value="journals">Journals</option>
+        </select>
+
+        <div id="booksFields" style="display: none;">
+            <label for="BookTitle">Title:</label>
+            <input type="text" id="BookTitle" name="BookTitle" required><br>
+
+            <label for="BookVolume">Volume:</label>
+            <input type="text" id="BookVolume" name="BookVolume" required><br>
+
+            <label for="BookChapter">Chapter:</label>
+            <input type="text" id="BookChapter" name="BookChapter" required><br>
+
+            <label for="BookDate">Date:</label>
+            <input type="date" name="event_date" id="event_date" required><br>
+
+            <label for="BookIndex">Index:</label>
+            <select id="BookIndex" name="BookIndex" required>
+                <option value="none">Select an option</option>
+                <option value="ieee">IEEE</option>
+                <option value="ugc">UGC</option>
+                <option value="scopus">Scopus</option>
+                <option value="others">Others</option>
+            </select><br>
+        </div>
+
+        <div id="journalFields" style="display: none;">
+            <label for="JournalTitle">Title:</label>
+            <input type="text" id="JournalTitle" name="JournalTitle" required><br>
+
+            <label for="JournalChapter">Chapter:</label>
+            <input type="text" id="JournalChapter" name="JournalChapter" required><br>
+
+            <label for="JournalDate">Date:</label>
+            <input type="text" id="JournalDate" name="JournalDate" required><br>
+
+            <label for="JournalIndex">Index:</label>
+            <select id="JournalIndex" name="JournalIndex" required>
+                <option value="none">Select an option</option>
+                <option value="ieee">IEEE</option>
+                <option value="ugc">UGC</option>
+                <option value="scopus">Scopus</option>
+                <option value="others">Others</option>
+            </select><br>
+        </div>
+
+        <input type="submit" value="Submit">
+    </form>
+    <footer>
+        <p>
+            Created with ❤️ By Us :)
+        </p>
+    </footer>
+    <script src="facultyPublications.js"></script>
+</body>
+</html>
