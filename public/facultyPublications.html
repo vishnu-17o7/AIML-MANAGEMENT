@@ -10,7 +10,7 @@
 
 <body>
     <h1>Table for Faculty Publications</h1>
-    <form action="/submitPublication" method="post">
+    <form action="/submitPublication" method="post" enctype="multipart/form-data">
         <label for="PublicationType">Publication Type:</label>
         <select id="PublicationType" name="PublicationType">
             <option value="none">Select an option</option>
@@ -39,9 +39,9 @@
                 <option value="scopus">Scopus</option>
                 <option value="others">Others</option>
             </select><br>
-            <div class = "upload-file">
-                <label for="proof">Upload PDF Proof :</label>
-                <input type="file" name="proof" id="proof" required accept=".pdf">
+            <div class="upload-file">
+                <label for="bookProof">Upload PDF Proof:</label>
+                <input type="file" name="bookProof" id="bookProof" required accept=".pdf">
             </div>
         </div>
 
@@ -63,9 +63,9 @@
                 <option value="scopus">Scopus</option>
                 <option value="others">Others</option>
             </select><br>
-            <div class = "upload-file">
-                <label for="proof">Upload PDF Proof :</label>
-                <input type="file" name="proof" id="proof" required accept=".pdf">
+            <div class="upload-file">
+                <label for="journalProof">Upload PDF Proof:</label>
+                <input type="file" name="journalProof" id="journalProof" required accept=".pdf">
             </div>
         </div>
 
