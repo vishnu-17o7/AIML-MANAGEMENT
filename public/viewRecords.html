@@ -5,22 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Attendance Records</title>
     <link rel="stylesheet" href="viewRecords.css">
-    <!-- Include required libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.2/xlsx.full.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tableexport/5.3.4/js/tableexport.min.js"></script>
 </head>
 <body>
-    <h1>Attendance Records</h1>
+    <div id="sidePanel">
+        <h2>Filter and Sort</h2>
+        <form id="filterForm">
+            <label for="fromDate">From Date:</label>
+            <input type="date" id="fromDate" name="fromDate">
 
-    <!-- Event type checkboxes -->
-    <div id="eventTypeFilters">
-        <label><input type="checkbox" class="eventTypeCheckbox" value="Type1"> Type 1</label>
-        <label><input type="checkbox" class="eventTypeCheckbox" value="Type2"> Type 2</label>
-        <!-- Add more checkboxes for each event type -->
+            <label for="toDate">To Date:</label>
+            <input type="date" id="toDate" name="toDate">
+            
+            <label for="eventTypes">Event Type:</label>
+            <input type="checkbox" id="conference" name="eventTypes" value="conference">
+            <label for="conference">Conference</label>
+            <input type="checkbox" id="fdp" name="eventTypes" value="fdp">
+            <label for="fdp">FDP</label>
+            <input type="checkbox" id="seminar" name="eventTypes" value="seminar">
+            <label for="seminar">Seminar</label>
+            <input type="checkbox" id="lecture" name="eventTypes" value="lecture">
+            <label for="lecture">Lecture</label>
+            
+            <label for="sortByDate">Sort By Date:</label>
+            <select id="sortByDate" name="sortByDate">
+                <option value = "none">Select an option</option>
+                <option value="asc">Ascending</option>
+                <option value="desc">Descending</option>
+            </select>
+            
+            <button type="button" onclick="applyFilters()">Apply</button>
+        </form>
     </div>
-
+    
+    <h1>Attendance Records</h1>
     <table id="recordTable">
         <thead>
             <tr>
@@ -38,12 +55,13 @@
         </thead>
         <tbody></tbody>
     </table>
-
-    <!-- Export buttons -->
-    <button type="button" onclick="exportToPDF()">Export to PDF</button>
-    <button type="button" onclick="exportToExcel()">Export to Excel</button>
-
+    
     <script src="/viewRecords" type="text/javascript"></script>
-       
+    
+    <footer>
+        <p>
+            Created with ❤️ By Us :)
+        </p>
+    </footer>
 </body>
 </html>

@@ -27,7 +27,7 @@ const upload = multer({
 
 router.post('/submitPublication', upload.single('proof'), (req, res) => {
     if (!req.file) {
-        return res.status(400).send('No file was uploaded.');
+        return res.status(400).send('No hi file was uploaded.');
     }
 
     // Extract form field values

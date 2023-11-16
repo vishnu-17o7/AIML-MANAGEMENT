@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Faculty Publications</title>
     <link rel="stylesheet" href="facultyPublications.css">
 </head>
+
 <body>
     <h1>Table for Faculty Publications</h1>
-    <form action="" method="post">
+    <form action="/submitPublication" method="post">
         <label for="PublicationType">Publication Type:</label>
         <select id="PublicationType" name="PublicationType">
             <option value="none">Select an option</option>
@@ -27,7 +29,7 @@
             <input type="text" id="BookChapter" name="BookChapter" required><br>
 
             <label for="BookDate">Date:</label>
-            <input type="date" name="event_date" id="event_date" required><br>
+            <input type="date" name="BookDate" id="BookDate" required><br>
 
             <label for="BookIndex">Index:</label>
             <select id="BookIndex" name="BookIndex" required>
@@ -37,6 +39,10 @@
                 <option value="scopus">Scopus</option>
                 <option value="others">Others</option>
             </select><br>
+            <div class = "upload-file">
+                <label for="proof">Upload PDF Proof :</label>
+                <input type="file" name="proof" id="proof" required accept=".pdf">
+            </div>
         </div>
 
         <div id="journalFields" style="display: none;">
@@ -47,7 +53,7 @@
             <input type="text" id="JournalChapter" name="JournalChapter" required><br>
 
             <label for="JournalDate">Date:</label>
-            <input type="text" id="JournalDate" name="JournalDate" required><br>
+            <input type="date" id="JournalDate" name="JournalDate" required><br>
 
             <label for="JournalIndex">Index:</label>
             <select id="JournalIndex" name="JournalIndex" required>
@@ -57,15 +63,48 @@
                 <option value="scopus">Scopus</option>
                 <option value="others">Others</option>
             </select><br>
+            <div class = "upload-file">
+                <label for="proof">Upload PDF Proof :</label>
+                <input type="file" name="proof" id="proof" required accept=".pdf">
+            </div>
         </div>
 
-        <input type="submit" value="Submit">
+        <button type="submit">Submit</button>
     </form>
     <footer>
         <p>
             Created with ❤️ By Us :)
         </p>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const publicationTypeSelect = document.getElementById('PublicationType');
+            const booksFields = document.getElementById('booksFields');
+            const journalFields = document.getElementById('journalFields');
+
+            publicationTypeSelect.addEventListener('change', function () {
+                if (publicationTypeSelect.value === 'books') {
+                    setRequiredStatus(booksFields, true);
+                    setRequiredStatus(journalFields, false);
+                } else if (publicationTypeSelect.value === 'journals') {
+                    setRequiredStatus(booksFields, false);
+                    setRequiredStatus(journalFields, true);
+                } else {
+                    setRequiredStatus(booksFields, false);
+                    setRequiredStatus(journalFields, false);
+                }
+            });
+
+            function setRequiredStatus(container, status) {
+                const inputs = container.querySelectorAll('input, select');
+                inputs.forEach(input => {
+                    input.required = status;
+                });
+            }
+        });
+    </script>
     <script src="facultyPublications.js"></script>
 </body>
+
 </html>

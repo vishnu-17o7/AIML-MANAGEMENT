@@ -143,3 +143,19 @@ footer p {
 .form-group textarea{
     resize: none;
 }
+
+.upload-file input[type="file"] {
+    display: none; /* Hide the default file input */
+}
+
+.upload-file label {
+    background-color: #4CAF50; /* Set background color */
+    color: white; /* Set text color */
+    padding: 10px 15px; /* Add padding to the label */
+    cursor: pointer; /* Change cursor style to pointer */
+    border-radius: 5px; /* Add border radius for a rounded look */
+}
+
+.upload-file label:hover {
+    background-color: #45a049; /* Change background color on hover */
+}
