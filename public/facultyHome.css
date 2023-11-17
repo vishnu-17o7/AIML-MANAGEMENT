@@ -19,6 +19,12 @@ body {
 	background-repeat: no-repeat; 
 }
 
+.total-div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+} 
 nav {
     background: #fff;
     border-bottom: 2px solid #6c6556;
@@ -45,7 +51,7 @@ h1 {
     color: #333;
 }
 
-.container-1 {
+.container-1, .container-2 {
     background: #fff; /* Solid light background */
     padding: 20px;
     border-radius: 10px;

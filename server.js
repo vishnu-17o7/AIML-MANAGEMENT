@@ -75,8 +75,29 @@ app.listen(port, () => {
 });
 
 app.get("/api/attendance_records", (req, res) => {
-  const sql = "SELECT * FROM `aiml`.`attendance_records`";
+  let sql = "SELECT * FROM `aiml`.`attendance_records` WHERE 1";
 
+  // Handle filters
+  if (req.query.fromDate) {
+      sql += ` AND event_date >= '${req.query.fromDate}'`;
+  }
+
+  if (req.query.toDate) {
+      sql += ` AND event_date <= '${req.query.toDate}'`;
+  }
+
+  if (req.query.eventTypes) {
+    const eventTypes = Array.isArray(req.query.eventTypes) ? req.query.eventTypes : [req.query.eventTypes];
+      sql += ` AND event_type IN (${eventTypes.join(",")})`;
+  }
+
+  // Handle sorting
+  if (req.query.sortByDate === "asc") {
+      sql += " ORDER BY event_date ASC";
+  } else if (req.query.sortByDate === "desc") {
+      sql += " ORDER BY event_date DESC";
+  }
+  console.log(sql);
   connection.query(sql, (err, results) => {
       if (err) {
           console.error("Error fetching records:", err);

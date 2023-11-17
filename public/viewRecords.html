@@ -1,42 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Attendance Records</title>
-    <link rel="stylesheet" href="viewRecords.css">
+    <link rel="stylesheet" href="viewRecords.css" />
 </head>
+
 <body>
     <div id="sidePanel">
         <h2>Filter and Sort</h2>
         <form id="filterForm">
             <label for="fromDate">From Date:</label>
-            <input type="date" id="fromDate" name="fromDate">
+            <input type="date" id="fromDate" name="fromDate" />
 
             <label for="toDate">To Date:</label>
-            <input type="date" id="toDate" name="toDate">
-            
+            <input type="date" id="toDate" name="toDate" />
+
             <label for="eventTypes">Event Type:</label>
-            <input type="checkbox" id="conference" name="eventTypes" value="conference">
-            <label for="conference">Conference</label>
-            <input type="checkbox" id="fdp" name="eventTypes" value="fdp">
-            <label for="fdp">FDP</label>
-            <input type="checkbox" id="seminar" name="eventTypes" value="seminar">
-            <label for="seminar">Seminar</label>
-            <input type="checkbox" id="lecture" name="eventTypes" value="lecture">
-            <label for="lecture">Lecture</label>
+
+            <div>
+                <input type="checkbox" id="Conference" name="eventTypes" value="'Conference'" />
+                <label for="Conference">Conference</label>
+            </div>
             
+            <div>
+                <input type="checkbox" id="FDP" name="eventTypes" value="'Faculty Development Program'" />
+                <label for="FDP">FDP</label>
+            </div>
+            
+            <div>
+                <input type="checkbox" id="Seminar" name="eventTypes" value="'Seminar'" />
+                <label for="Seminar">Seminar</label>
+            </div>
+            
+            <div>
+                <input type="checkbox" id="Lecture" name="eventTypes" value="'Lecture'" />
+                <label for="Lecture">Lecture</label>
+            </div>
+            
+
             <label for="sortByDate">Sort By Date:</label>
             <select id="sortByDate" name="sortByDate">
-                <option value = "none">Select an option</option>
+                <option value="none">Select an option</option>
                 <option value="asc">Ascending</option>
                 <option value="desc">Descending</option>
             </select>
-            
+
             <button type="button" onclick="applyFilters()">Apply</button>
         </form>
     </div>
-    
+
     <h1>Attendance Records</h1>
     <table id="recordTable">
         <thead>
@@ -55,13 +70,17 @@
         </thead>
         <tbody></tbody>
     </table>
-    
+
     <script src="/viewRecords" type="text/javascript"></script>
-    
+
     <footer>
-        <p>
-            Created with ❤️ By Us :)
-        </p>
+        <p>Created with ❤️ By Us :)</p>
     </footer>
 </body>
+
+</html>
+</form>
+</div>
+</body>
+
 </html>
