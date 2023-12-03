@@ -29,9 +29,10 @@ router.post('/submit', upload.single('proof'), (req, res) => {
     if (!req.file) {
         return res.status(400).send('No file was uploaded.');
     }
+    const QQusername = req.session.user;
 
     // Extract form field values
-    const professorId = req.body.professor_id;
+    const professorId = QQusername;
     const eventType = req.body.event_type;
     const eventDate = req.body.event_date;
     const eventName = req.body.event_name;
@@ -41,7 +42,7 @@ router.post('/submit', upload.single('proof'), (req, res) => {
     const feedback = req.body.feedback;
 
     // Define the insert query
-    const insertQuery = 'INSERT INTO attendance_records (professor_id, event_type, event_date, event_name, location, organizer, duration_minutes, feedback, proof_file_path) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    const insertQuery = 'INSERT INTO eventRecords (professor_id, event_type, event_date, event_name, location, organizer, duration_minutes, feedback, proof_file_path) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
     // Execute the insert query
     connection.query(insertQuery, [professorId, eventType, eventDate, eventName, location, organizer, durationMinutes, feedback, req.file.path], (err, results) => {

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Publications</title>
+  <style>
+    /* Add your styles here */
+  </style>
+</head>
+
+<body>
+  <h1>Edit Publications</h1>
+
+  <div>
+    <!-- Dropdown to select publication IDs -->
+    <label for="publicationDropdown">Select Publication ID:</label>
+    <select id="publicationDropdown">
+      <!-- Options will be dynamically added here -->
+    </select>
+
+    <!-- Button to trigger display of publication details -->
+    <button onclick="displayPublicationDetails()">Select</button>
+  </div>
+  <div id="publicationDetails"></div>
+
+  <form id="editPublicationForm" enctype="multipart/form-data">
+    <h2>Edit Publication</h2>
+
+    <!-- Add hidden fields for PublicationID and FacultyID -->
+    <input type="hidden" id="publicationIdInput" name="publicationIdInput">
+    <input type="hidden" id="facultyIdInput" name="facultyIdInput">
+
+    <label for="titleInput">Title:</label>
+    <input type="text" id="titleInput" name="titleInput">
+
+    <label for="chapterInput">Chapter:</label>
+    <input type="text" id="chapterInput" name="chapterInput">
+
+    <label for="publicationDateInput">Publication Date:</label>
+    <input type="text" id="publicationDateInput" name="publicationDateInput">
+
+    <label for="volumeInput">Volume:</label>
+    <input type="text" id="volumeInput" name="volumeInput">
+
+    <label for="indexTypeInput">Index Type:</label>
+    <select id="indexTypeInput" name="indexTypeInput" required>
+      <option value="none">Select an option</option>
+      <option value="ieee">IEEE</option>
+      <option value="ugc">UGC</option>
+      <option value="scopus">Scopus</option>
+      <option value="others">Others</option>
+    </select>
+
+    <label for="filePathInput">File Path:</label>
+    <input type="file" id="filePathInput" name="filePathInput">
+
+    <input type="hidden" id="publicationTypeInput" name="publicationTypeInput">
+
+    <!-- Add other input fields for additional publication details -->
+
+    <button type="button" onclick="submitEditPublication()">Submit Edit</button>
+  </form>
+
+  <!-- Display details in this div -->
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Mock user data (replace this with actual user data)
+      const userData = {
+        facultyID: 'exampleUser',
+        // Add other user data as needed
+      };
+
+      const publicationDropdown = document.getElementById("publicationDropdown");
+      const publicationDetailsDiv = document.getElementById("publicationDetails");
+
+      // Fetch all publication IDs for the current user
+      fetch(`/api/publication_records`)
+        .then((response) => response.json())
+        .then((data) => {
+          // Populate the dropdown with publication IDs
+          data.forEach((publication) => {
+            const option = document.createElement("option");
+            option.value = publication.PublicationID;
+            option.textContent = `Publication ID: ${publication.PublicationID}`;
+            publicationDropdown.appendChild(option);
+          });
+        })
+        .catch((error) => console.error("Error fetching data:", error));
+    });
+
+    document.getElementById("publicationTypeInput").addEventListener("change", function () {
+      const publicationType = this.value;
+      const volumeInput = document.getElementById("volumeInput");
+
+      // Disable the Volume input if the Publication Type is "Journal"
+      if (publicationType.toLowerCase() === "journals") {
+        volumeInput.setAttribute("disabled", "disabled");
+      } else {
+        volumeInput.removeAttribute("disabled");
+      }
+    });
+
+    function displayPublicationDetails() {
+      const selectedPublicationId = document.getElementById("publicationDropdown").value;
+
+      // Check if a publication is selected
+      if (!selectedPublicationId) {
+        document.getElementById("publicationDetails").innerHTML = '<p>Select a publication ID to view details.</p>';
+        return;
+      }
+
+      // Fetch details of the selected publication
+      fetch(`/editPublications/${selectedPublicationId}`)
+        .then((response) => response.json())
+        .then((publication) => {
+          // Display details in the input fields
+          document.getElementById("publicationIdInput").value = publication.PublicationID;
+          document.getElementById("facultyIdInput").value = publication.FacultyID;
+          document.getElementById("titleInput").value = publication.Title;
+          document.getElementById("chapterInput").value = publication.Chapter;
+          document.getElementById("publicationDateInput").value = publication.PublicationDate;
+          document.getElementById("volumeInput").value = publication.Volume;
+          document.getElementById("indexTypeInput").value = publication.IndexType;
+          // document.getElementById("filePathInput").value = publication.FilePath;
+          document.getElementById("publicationTypeInput").value = publication.PublicationType;
+
+          // Display details in the publicationDetails div
+          const detailsHTML = `
+            <p>Publication ID: ${publication.PublicationID}</p>
+            <p>Faculty ID: ${publication.FacultyID}</p>
+            <p>Title: ${publication.Title}</p>
+            <p>Chapter: ${publication.Chapter}</p>
+            <p>Publication Date: ${publication.PublicationDate}</p>
+            <p>Volume: ${publication.Volume}</p>
+            <p>Index Type: ${publication.IndexType}</p>
+            <p>File Path: ${publication.FilePath}</p>
+            <p>Publication Type: ${publication.PublicationType}</p>
+            <!-- Add other publication details as needed -->
+          `;
+          document.getElementById("publicationDetails").innerHTML = detailsHTML;
+        })
+        .catch((error) => console.error("Error fetching publication details:", error));
+    }
+
+    function submitEditPublication() {
+  const publicationId = document.getElementById("publicationIdInput").value;
+
+  // Create a new FormData object from the form element
+  const formData = new FormData(document.getElementById("editPublicationForm"));
+
+  // Convert the date string to 'yyyy-mm-dd' format
+  const publicationDateInput = formData.get("publicationDateInput");
+  const formattedDate = new Date(publicationDateInput).toISOString().split('T')[0];
+
+  // Set the formatted date back to the FormData object
+  formData.set("publicationDateInput", formattedDate);
+
+  // Log the FormData using for...of loop
+  for (var key of formData.entries()) {
+    console.log(key[0] + ', ' + key[1]);
+  }
+
+  // Make a PUT request to update the publication
+  fetch(`/api/editPublications/${publicationId}`, {
+    method: "PUT",
+    body: formData,
+  })
+    .then((response) => response.json())
+    .then((result) => {
+      // Handle the server's response
+      alert(result.message);
+
+      // Optionally, you can redirect the user or perform other actions
+    })
+    .catch((error) => console.error("Error submitting edit:", error));
+}
+
+  </script>
+</body>
+
+</html>

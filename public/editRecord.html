@@ -1,73 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Attendance Record</title>
-    <link rel="stylesheet" href="facupload.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Records</title>
+  <style>
+    /* Add your styles here */
+  </style>
 </head>
+
 <body>
-    <h1>Edit Attendance Record</h1>
-    <form class="attendance-form" action="/editRecord" method="POST" enctype="multipart/form-data">
-        <div class="container-1">
-            <div class="form-group" id="professor_id">
-                <label for="professor_id">Professor ID:</label>
-                <input type="text" name="professor_id" id="professor_id"  required>
-            </div>
-            <div class="form-group">
-                <label for="event_type">Event Type:</label>
-                <select name="event_type" id="event_type" required>
-                    <option value="" disabled selected>Select an option</option>
-                    <option value="Seminar" <% if (record.event_type === 'Seminar') { %>Lecture</option>
-                    <option value="Workshop" <% if (record.event_type === 'Workshop') { %>Workshop</option>
-                    <option value="Faculty Development Program" <% if (record.event_type === 'Faculty Development Program') { %>Faculty Development Program</option>
-                    <option value="Conference" <% if (record.event_type === 'Conference') { %>Conference</option>
-                </select>
-            </div>
-        </div>
-        <div class="container-2">
-            <div class="form-group">
-                <label for="event_date">Event Date:</label>
-                <input type="date" name="event_date" id="event_date" required>
-            </div>
-            <div class="form-group">
-                <label for="event_name">Event Name:</label>
-                <label for="event_name">Event ID:</label>
-                <input type="text" name="event_name" id="event_name"  required>
-            </div>
-        </div>
-        <div class="container-2">
-            <div class="form-group">
-                <label for="location">Location:</label>
-                <input type="text" name="location" id="location"  required>
-            </div>
-            <div class="form-group">
-                <label for="organizer">Organizer:</label>
-                <input type="text" name="organizer" id="organizer">
-            </div>
-        </div>
-        <div class="container-4">
-            <div class="form-group">
-                <label for="duration_minutes">Duration (in minutes):</label>
-                <input type="number" name="duration_minutes" id="duration_minutes" value="Duration Minutes">
-            </div>
-            <div class="form-group">
-                <label for="feedback">Feedback:</label>
-                <textarea name="feedback" id="feedback" rows="4" cols="50"></textarea>
-            </div>
-        </div>
-        <div class="container-5">
-            <div class="upload-file">
-                <label for="proof">Upload PDF Proof</label>
-                <input type="file" name="proof" id="proof" accept=".pdf">
-            </div>
-            <div>
-                <button type="submit">Update</button>
-            </div>
-        </div>
-    </form>
+  <h1>Edit Records</h1>
+
+  <div>
+    <!-- Dropdown to select record IDs -->
+    <label for="recordDropdown">Select Record ID:</label>
+    <select id="recordDropdown">
+      <!-- Options will be dynamically added here -->
+    </select>
+
+    <!-- Button to trigger display of record details -->
+    <button onclick="displayRecordDetails()">Select</button>
+  </div>
+  <div id="recordDetails"></div>
+
+  <form id="editRecordForm" enctype="multipart/form-data">
+    <h2>Edit Record</h2>
+
+    <!-- Add hidden fields for id and professor_id -->
+    <input type="hidden" id="idInput" name="idInput">
+    <input type="hidden" id="professorIdInput" name="professorIdInput">
+
+    <label for="eventTypeInput">Event Type:</label>
+    <input type="text" id="eventTypeInput" name="eventTypeInput">
+
+    <label for="eventDateInput">Event Date:</label>
+    <input type="text" id="eventDateInput" name="eventDateInput">
+
+    <label for="eventNameInput">Event Name:</label>
+    <input type="text" id="eventNameInput" name="eventNameInput">
+
+    <label for="locationInput">Location:</label>
+    <input type="text" id="locationInput" name="locationInput">
+
+    <label for="organizerInput">Organizer:</label>
+    <input type="text" id="organizerInput" name="organizerInput">
+
+    <label for="durationInput">Duration (minutes):</label>
+    <input type="text" id="durationInput" name="durationInput">
+
+    <label for="feedbackInput">Feedback:</label>
+    <input type="text" id="feedbackInput" name="feedbackInput">
+
+    <label for="proofFileInput">Proof File:</label>
+    <input type="file" id="proofFileInput" name="proofFileInput">
+
+    <!-- Add other input fields for additional record details -->
+
+    <button type="button" onclick="submitEdit()">Submit Edit</button>
+  </form>
+
+  <!-- Display details in this div -->
+
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Mock user data (replace this with actual user data)
+      const userData = {
+        facultyID: 'exampleUser',
+        // Add other user data as needed
+      };
+
+      const recordDropdown = document.getElementById("recordDropdown");
+      const recordDetailsDiv = document.getElementById("recordDetails");
+
+      // Fetch all record IDs for the current user
+      fetch(`/api/publication_records`)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Fetched data:", data);
+          // Populate the dropdown with record IDs
+          data.forEach((record) => {
+            const option = document.createElement("option");
+            option.value = record.id;
+            option.textContent = `Record ID: ${record.id}`;
+            recordDropdown.appendChild(option);
+          });
+        })
+        .catch((error) => console.error("Error fetching data:", error));
+    });
+
+    function displayRecordDetails() {
+      const selectedRecordId = document.getElementById("recordDropdown").value;
+
+      // Check if a record is selected
+      if (!selectedRecordId) {
+        document.getElementById("recordDetails").innerHTML = '<p>Select a record ID to view details.</p>';
+        return;
+      }
+
+      // Fetch details of the selected record
+      fetch(`/editRecords/${selectedRecordId}`)
+        .then((response) => response.json())
+        .then((record) => {
+          // Display details in the input fields
+          document.getElementById("idInput").value = record.id;
+          document.getElementById("professorIdInput").value = record.professor_id;
+          document.getElementById("eventTypeInput").value = record.event_type;
+          document.getElementById("eventDateInput").value = record.event_date;
+          document.getElementById("eventNameInput").value = record.event_name;
+          document.getElementById("locationInput").value = record.location;
+          document.getElementById("organizerInput").value = record.organizer;
+          document.getElementById("durationInput").value = record.duration_minutes;
+          document.getElementById("feedbackInput").value = record.feedback;
+          // document.getElementById("proofFilePathInput").value = record.proof_file_path;
+
+          // Display details in the recordDetails div
+          const detailsHTML = `
+            <p>ID: ${record.id}</p>
+            <p>Professor ID: ${record.professor_id}</p>
+            <p>Event Type: ${record.event_type}</p>
+            <p>Event Date: ${record.event_date}</p>
+            <p>Event Name: ${record.event_name}</p>
+            <p>Location: ${record.location}</p>
+            <p>Organizer: ${record.organizer}</p>
+            <p>Duration (minutes): ${record.duration_minutes}</p>
+            <p>Feedback: ${record.feedback}</p>
+            <p>Proof File Path: ${record.proof_file_path}</p>
+            <!-- Add other record details as needed -->
+          `;
+          document.getElementById("recordDetails").innerHTML = detailsHTML;
+        })
+        .catch((error) => console.error("Error fetching record details:", error));
+    }
+
+    function submitEdit() {
+  const recordId = document.getElementById("idInput").value;
+
+  // Create a new FormData object from the form element
+  const formData = new FormData(document.getElementById("editRecordForm"));
+
+  // Convert the date string to a format compatible with MySQL (date only)
+  const eventDateInput = formData.get("eventDateInput");
+  const formattedDate = new Date(eventDateInput).toISOString().split('T')[0];
+
+  // Set the formatted date back to the FormData object
+  formData.set("eventDateInput", formattedDate);
+
+  // Log the FormData using for...of loop
+  for (var key of formData.entries()) {
+    console.log(key[0] + ', ' + key[1]);
+  }
+
+  // Make a PUT request to update the record
+  fetch(`/api/editRecords/${recordId}`, {
+    method: "PUT",
+    body: formData,
+  })
+    .then((response) => response.json())
+    .then((result) => {
+      // Handle the server's response
+      alert(result.message);
+
+      // Optionally, you can redirect the user or perform other actions
+    })
+    .catch((error) => console.error("Error submitting edit:", error));
+}
+
+
+
+  </script>
 </body>
-<footer>
-    <p>Created with ❤️ By Us :)</p>
-</footer>
+
 </html>

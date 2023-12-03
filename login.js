@@ -10,25 +10,25 @@ const connection = mysql.createConnection({
 
 //Performing login authentication
 function authenticateUser(username, password, callback) {
-  const query = 'SELECT * FROM login WHERE username = ? AND password = ?';
+  const query = 'SELECT * FROM login WHERE facultyID = ? AND password = ?';
   connection.query(query, [username, password], (err, results) => {
     if (err) {
       console.error('Error executing query:', err);
-      callback(err, false);
+      callback(err, false, username);
       return;
     }
 
     if (results.length > 0) {
-      callback(null, true);
+      callback(null, true, username);
     } else {
-      callback(null, false);
+      callback(null, false, username);
     }
   });
 }
 
 //Registering user in the login database
 function registerUser(username, password, type, callback) {
-  const query = 'INSERT INTO login (username, password, type) VALUES (?, ?, ?)';
+  const query = 'INSERT INTO login (facultyID, password, type) VALUES (?, ?, ?)';
   connection.query(query, [username, password, type], (err) => {
     if (err) {
       console.error('Error executing query:', err);

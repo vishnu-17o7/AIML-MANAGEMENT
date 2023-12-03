@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Attendance Records</title>
     <link rel="stylesheet" href="viewRecords.css" />
+    <script src="https://rawgit.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
 </head>
 
 <body>
@@ -70,6 +71,8 @@
         </thead>
         <tbody></tbody>
     </table>
+    <!-- Add this button where you want it in your HTML file, e.g., after the table -->
+    <button onclick="downloadTableAsPDF()">Download PDF</button>
 
     <script src="/viewRecords" type="text/javascript"></script>
 

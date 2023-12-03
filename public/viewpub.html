@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Faculty Publications</title>
+    <link rel="stylesheet" href="viewpub.css">
+</head>
+<body>
+    <div id="filterPanel">
+        <h2>Filter Publications</h2>
+        <form id="filterForm">
+            <label for="publicationType">Publication Type:</label>
+            <select id="publicationType" name="publicationType">
+                <option value="none">Select an option</option>
+                <option value="books">Books</option>
+                <option value="journals">Journals</option>
+            </select>
+
+            <label for="fromDate">From Date:</label>
+            <input type="date" id="fromDate" name="fromDate" placeholder="From Date">
+
+            <label for="toDate">To Date:</label>
+            <input type="date" id="toDate" name="toDate" placeholder="To Date">
+
+            <label for="index">Index:</label>
+            <select id="index" name="index">
+                <option value="none">Select an option</option>
+                <option value="ieee">IEEE</option>
+                <option value="ugc">UGC</option>
+                <option value="scopus">Scopus</option>
+                <option value="others">Others</option>
+            </select>
+
+            <button type="button" onclick="applyFilters()">Apply Filters</button>
+        </form>
+    </div>
+
+    <h1>View Faculty Publications</h1>
+    <table id="publicationTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Faculty ID</th>
+                <th>Title</th>
+                <th>Chapter</th>
+                <th>Publication Date</th>
+                <th>Volume</th>
+                <th>Index Type</th>
+                <th>File Path</th>
+                <th>Publication Type</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+ 
+    <script src="/viewPublications" type="text/javascript"></script>
+
+    <footer>
+        <p>
+            Created with ❤️ By Us :)
+        </p>
+    </footer>
+</body>
+</html>

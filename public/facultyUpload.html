@@ -8,25 +8,40 @@
 <body>
     <h1>Attendance Form</h1>
     <form class="attendance-form" action="/submit" method="POST" enctype="multipart/form-data">
-        <div class="container-1">
-            <div class="form-group" id="professor_id">
-                <label for="professor_id">Professor ID:</label>
-                <input type="text" name="professor_id" id="professor_id" required>
-            </div>
-        </div>
+
         <div class="container-2">
             <div class="form-group">
                 <label for="attendance_date">Event Attendance Date:</label>
-                <input type="date" name="attendance_date" id="attendance_date" required>
+                <input type="date" name="event_date" id="attendance_date" required>
             </div>
-
             <div class="form-group">
-
-                <label for="event_name">Event ID:</label>
-                <input type="text" name="Event ID" id="event_id" required>
+                <label for="event_name">Event Name:</label>
+                <input type="text" name="event_name" id="event_name" required>
             </div>
         </div>
 
+        <div class="form-group">
+            <label for="event-type">Event Type:</label>
+            <select name="event_type" id="event_type" required>
+                <option value="" disabled selected>Select an option</option>
+                <option value="Seminar">Lecture</option>
+                <option value="Workshop">Workshop</option>
+                <option value="Faculty Development Program">Faculty Development Program</option>
+                <option value="Conference">Conference</option>
+            </select>
+        </div>
+    </div>
+    <div class="container-2">
+        <div class="form-group">
+            <label for="location">Location:</label>
+            <input type="text" name="location" id="location" required>
+        </div>
+
+        <div class="form-group">
+            <label for="organizer">Organizer:</label>
+            <input type="text" name="organizer" id="organizer">
+        </div>
+    </div>
         <div class="container-4">
             <div class="form-group">
                 <label for="duration_minutes">Duration (in minutes):</label>
@@ -38,7 +53,7 @@
             </div>
         </div>
         <div class="container-5">
-            <div class = "upload-file">
+            <div class="upload-file">
                 <label for="proof">Upload PDF Proof :</label>
                 <input type="file" name="proof" id="proof" required accept=".pdf">
             </div>
@@ -46,12 +61,11 @@
                 <button type="submit">Submit</button>
             </div>
         </div>
-       
     </form>
 </body>
 <footer>
     <p>
       Created with ❤️ By Us :)
     </p>
-  </footer>
+</footer>
 </html>

@@ -13,8 +13,8 @@
     <form action="/submitPublication" method="post" enctype="multipart/form-data">
         <label for="PublicationType">Publication Type:</label>
         <select id="PublicationType" name="PublicationType">
-            <option value="none">Select an option</option>
-            <option value="books">Books</option>
+            <option value="none" disabled>Select an option</option>
+            <option value="books" >Books</option>
             <option value="journals">Journals</option>
         </select>
 
@@ -41,7 +41,7 @@
             </select><br>
             <div class="upload-file">
                 <label for="bookProof">Upload PDF Proof:</label>
-                <input type="file" name="bookProof" id="bookProof" required accept=".pdf">
+                <input type="file" name="proof" id="proof" required accept=".pdf">
             </div>
         </div>
 
@@ -65,7 +65,7 @@
             </select><br>
             <div class="upload-file">
                 <label for="journalProof">Upload PDF Proof:</label>
-                <input type="file" name="journalProof" id="journalProof" required accept=".pdf">
+                <input type="file" name="proof" id="proof" required accept=".pdf">
             </div>
         </div>
 
