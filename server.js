@@ -11,6 +11,7 @@ const Qusername = 'username';
 const app = express();
 const port = 3000;
 
+// Multer configuration for handling file uploads and its location
 const storage = multer.diskStorage({
   destination: 'uploads/',
   filename: (req, file, cb) => {
@@ -18,6 +19,7 @@ const storage = multer.diskStorage({
   },
 });
 
+// Multer configuration for handling the file types
 const upload = multer({
   storage,
   fileFilter: (req, file, cb) => {
@@ -34,17 +36,19 @@ const upload = multer({
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 
-app.use(sessionMiddleware);  // Use the session middleware
+//Use session exported from session.js
+app.use(sessionMiddleware); 
 
-// ... (other routes)
 
 app.use('/', facultyUpload);
 app.use('/', facultyPublications);
+
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'log.html'));
 });
 
+// Handle login of a user
 app.post('/login', (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
@@ -57,6 +61,7 @@ app.post('/login', (req, res) => {
     }
 
     if (isAuthenticated) {
+      // Store the current username in a express session
       req.session.user = username;
       res.redirect(`/facultyHome`);
     } else {
@@ -65,7 +70,8 @@ app.post('/login', (req, res) => {
   });
 });
 
-  app.post('/register', (req, res) => {
+// Handle register of a new user
+app.post('/register', (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
     const type = req.body.userType;
@@ -81,9 +87,9 @@ app.post('/login', (req, res) => {
         res.send('Registration failed');
       }
     });
-  });
+});
 
-// Handle GET request for the registration page
+// Handle GET request for the register page
 app.get('/registerpage', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'log.html'));
 });
@@ -96,14 +102,12 @@ app.get('/loginpage', (req, res) => {
 app.use('/', facultyUpload);
 app.use('/', facultyPublications);
 
+// Handle GET request for the home page
 app.get('/facultyHome', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'facultyHome.html'));
 });
 
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
-});
-
+// get request for handling soriting and viewing
 app.get("/api/attendance_records", (req, res) => {
 
   const QQusername = req.session.user;  // Assuming you store the username in the session
@@ -118,17 +122,17 @@ app.get("/api/attendance_records", (req, res) => {
     sql += ` AND event_date <= '${req.query.toDate}'`;
   }
 
-  if (req.query.eventTypes) {
-    const eventTypes = Array.isArray(req.query.eventTypes) ? req.query.eventTypes : [req.query.eventTypes];
-    sql += ` AND event_type IN (${eventTypes.join(",")})`;
-      }
+    if (req.query.eventTypes) {
+      const eventTypes = Array.isArray(req.query.eventTypes) ? req.query.eventTypes : [req.query.eventTypes];
+      sql += ` AND event_type IN ('${eventTypes.join("','")}')`;
+  }
 
-  // Handle sorting
   if (req.query.sortByDate === "asc") {
     sql += " ORDER BY event_date ASC";
   } else if (req.query.sortByDate === "desc") {
     sql += " ORDER BY event_date DESC";
   }
+
   console.log(sql);
 connection.query(sql, (err, results) => {
     if (err) {
@@ -140,18 +144,21 @@ connection.query(sql, (err, results) => {
   });
 });
 
+// linking html and css of event records
 app.get('/viewRecords', (req, res) => {
   res.setHeader('Content-Type', 'application/javascript');
 
   res.sendFile(path.join(__dirname, 'public', 'viewRecords.js'));
 });
 
+// linking html and css of publications
 app.get('/viewPublications', (req, res) => {
   res.setHeader('Content-Type', 'application/javascript');
 
   res.sendFile(path.join(__dirname, 'public', 'viewPublications.js'));
 });
 
+//  Download file request based on file path
 app.get('/downloadEventsProof/:fileName', (req, res) => {
   const fileName = req.params.fileName;
   const filePath = path.join(__dirname, decodeURIComponent(fileName));
@@ -164,9 +171,10 @@ app.get('/downloadEventsProof/:fileName', (req, res) => {
   });
 });
 
+// get all the editable records 
 app.get('/editRecords/:recordId', (req, res) => {
   const recordId = req.params.recordId;
-
+  console.log(recordId);
   const QQusername = req.session.user;
   let sql = `SELECT * FROM \`aiml\`.\`eventRecords\` WHERE id = '${recordId}' AND professor_id = '${QQusername}'`;
 
@@ -177,22 +185,20 @@ app.get('/editRecords/:recordId', (req, res) => {
       return;
     }
 
-    // Check if the record is found
     if (result.length === 0) {
       res.status(404).json({ error: 'Record not found' });
       return;
     }
 
-    // Return the record as JSON
     res.json(result[0]);
   });
 });
 
+//Function to handle the edit request of faculty handles
 app.put('/api/editRecords/:recordId', upload.single('proofFileInput'), (req, res) => {
   const recordId = req.params.recordId;
   const QQusername = req.session.user;
 
-  // Get the edited data from the request body
   const editedRecord = {
     event_type: req.body.eventTypeInput,
     event_date: req.body.eventDateInput,
@@ -201,15 +207,12 @@ app.put('/api/editRecords/:recordId', upload.single('proofFileInput'), (req, res
     organizer: req.body.organizerInput,
     duration_minutes: req.body.durationInput,
     feedback: req.body.feedbackInput,
-    // Add other fields for additional record details
   };
 
-  // Check if a new proof file is uploaded
   if (req.file) {
     editedRecord.proof_file_path = req.file.path; // Assuming the file path is stored in the database
   }
 
-  // Update the record in the database
   const sql = `UPDATE \`aiml\`.\`eventRecords\` SET ? WHERE id = ? AND professor_id = ?`;
   connection.query(sql, [editedRecord, recordId, QQusername], (err, result) => {
     if (err) {
@@ -218,7 +221,6 @@ app.put('/api/editRecords/:recordId', upload.single('proofFileInput'), (req, res
       return;
     }
 
-    // Check if the record is updated successfully
     if (result.affectedRows === 0) {
       res.status(404).json({ error: 'Record not found or you do not have permission to edit' });
       return;
@@ -228,6 +230,7 @@ app.put('/api/editRecords/:recordId', upload.single('proofFileInput'), (req, res
   });
 });
 
+// Get request for handling the filters and viewing of publications
 app.get('/api/publication_records', (req, res) => {
   let sql = 'SELECT * FROM FacultyPublications WHERE 1=1'; // Initial query
 
@@ -248,7 +251,6 @@ app.get('/api/publication_records', (req, res) => {
     sql += ` AND IndexType = '${req.query.index}'`;
   }
 
-  // Execute the SQL query
   connection.query(sql, (err, results) => {
     if (err) {
       console.error('Error fetching publication records:', err);
@@ -260,6 +262,7 @@ app.get('/api/publication_records', (req, res) => {
   });
 });
 
+// To get all the records for selection in edit publications page
 app.get('/editPublications/:publicationId', (req, res) => {
   const PublicationID = req.params.publicationId;
 
@@ -273,36 +276,31 @@ app.get('/editPublications/:publicationId', (req, res) => {
       return;
     }
 
-    // Check if the record is found
     if (result.length === 0) {
       res.status(404).json({ error: 'Record not found' });
       return;
     }
 
-    // Return the record as JSON
     res.json(result[0]);
   });
 });
 
+// Handle the edit Publications Query
 app.put('/api/editPublications/:publicationId', upload.single('filePathInput'), (req, res) => {
   const publicationId = req.params.publicationId;
 
-  // Get the edited data from the request body
   const editedPublication = {
     title: req.body.titleInput,
     chapter: req.body.chapterInput,
     PublicationDate: req.body.publicationDateInput,
     volume: req.body.volumeInput,
     IndexType: req.body.indexTypeInput,
-    // Add other fields for additional publication details
   };
 
-  // Check if a new file is uploaded
   if (req.file) {
-    editedPublication.file_path = req.file.path; // Assuming the file path is stored in the database
+    editedPublication.file_path = req.file.path;
   }
 
-  // Update the publication in the database
   const sql = `UPDATE \`aiml\`.\`facultyPublications\` SET ? WHERE PublicationID = ?`;
   connection.query(sql, [editedPublication, publicationId], (err, result) => {
     if (err) {
@@ -311,7 +309,6 @@ app.put('/api/editPublications/:publicationId', upload.single('filePathInput'), 
       return;
     }
 
-    // Check if the publication is updated successfully
     if (result.affectedRows === 0) {
       res.status(404).json({ error: 'Publication not found' });
       return;
@@ -319,4 +316,8 @@ app.put('/api/editPublications/:publicationId', upload.single('filePathInput'), 
 
     res.json({ message: 'Publication updated successfully' });
   });
+});
+
+app.listen(port, () => {
+  console.log(`Server running on http://localhost:${port}`);
 });

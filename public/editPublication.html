@@ -5,22 +5,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Edit Publications</title>
-  <style>
-    /* Add your styles here */
-  </style>
 </head>
 
 <body>
   <h1>Edit Publications</h1>
 
   <div>
-    <!-- Dropdown to select publication IDs -->
     <label for="publicationDropdown">Select Publication ID:</label>
     <select id="publicationDropdown">
-      <!-- Options will be dynamically added here -->
     </select>
 
-    <!-- Button to trigger display of publication details -->
     <button onclick="displayPublicationDetails()">Select</button>
   </div>
   <div id="publicationDetails"></div>
@@ -28,7 +22,6 @@
   <form id="editPublicationForm" enctype="multipart/form-data">
     <h2>Edit Publication</h2>
 
-    <!-- Add hidden fields for PublicationID and FacultyID -->
     <input type="hidden" id="publicationIdInput" name="publicationIdInput">
     <input type="hidden" id="facultyIdInput" name="facultyIdInput">
 
@@ -58,12 +51,10 @@
 
     <input type="hidden" id="publicationTypeInput" name="publicationTypeInput">
 
-    <!-- Add other input fields for additional publication details -->
 
     <button type="button" onclick="submitEditPublication()">Submit Edit</button>
   </form>
 
-  <!-- Display details in this div -->
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -106,17 +97,14 @@
     function displayPublicationDetails() {
       const selectedPublicationId = document.getElementById("publicationDropdown").value;
 
-      // Check if a publication is selected
       if (!selectedPublicationId) {
         document.getElementById("publicationDetails").innerHTML = '<p>Select a publication ID to view details.</p>';
         return;
       }
 
-      // Fetch details of the selected publication
       fetch(`/editPublications/${selectedPublicationId}`)
         .then((response) => response.json())
         .then((publication) => {
-          // Display details in the input fields
           document.getElementById("publicationIdInput").value = publication.PublicationID;
           document.getElementById("facultyIdInput").value = publication.FacultyID;
           document.getElementById("titleInput").value = publication.Title;
@@ -124,10 +112,8 @@
           document.getElementById("publicationDateInput").value = publication.PublicationDate;
           document.getElementById("volumeInput").value = publication.Volume;
           document.getElementById("indexTypeInput").value = publication.IndexType;
-          // document.getElementById("filePathInput").value = publication.FilePath;
           document.getElementById("publicationTypeInput").value = publication.PublicationType;
 
-          // Display details in the publicationDetails div
           const detailsHTML = `
             <p>Publication ID: ${publication.PublicationID}</p>
             <p>Faculty ID: ${publication.FacultyID}</p>
@@ -148,32 +134,24 @@
     function submitEditPublication() {
   const publicationId = document.getElementById("publicationIdInput").value;
 
-  // Create a new FormData object from the form element
   const formData = new FormData(document.getElementById("editPublicationForm"));
 
-  // Convert the date string to 'yyyy-mm-dd' format
   const publicationDateInput = formData.get("publicationDateInput");
   const formattedDate = new Date(publicationDateInput).toISOString().split('T')[0];
 
-  // Set the formatted date back to the FormData object
   formData.set("publicationDateInput", formattedDate);
 
-  // Log the FormData using for...of loop
   for (var key of formData.entries()) {
     console.log(key[0] + ', ' + key[1]);
   }
 
-  // Make a PUT request to update the publication
   fetch(`/api/editPublications/${publicationId}`, {
     method: "PUT",
     body: formData,
   })
     .then((response) => response.json())
     .then((result) => {
-      // Handle the server's response
       alert(result.message);
-
-      // Optionally, you can redirect the user or perform other actions
     })
     .catch((error) => console.error("Error submitting edit:", error));
 }
