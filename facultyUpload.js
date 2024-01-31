@@ -25,13 +25,12 @@ const upload = multer({
     },
 });
 
+// Handle the GET request for the uploading data 
 router.post('/submit', upload.single('proof'), (req, res) => {
     if (!req.file) {
         return res.status(400).send('No file was uploaded.');
     }
     const QQusername = req.session.user;
-
-    // Extract form field values
     const professorId = QQusername;
     const eventType = req.body.event_type;
     const eventDate = req.body.event_date;
@@ -41,19 +40,14 @@ router.post('/submit', upload.single('proof'), (req, res) => {
     const durationMinutes = req.body.duration_minutes;
     const feedback = req.body.feedback;
 
-    // Define the insert query
     const insertQuery = 'INSERT INTO eventRecords (professor_id, event_type, event_date, event_name, location, organizer, duration_minutes, feedback, proof_file_path) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
-    // Execute the insert query
     connection.query(insertQuery, [professorId, eventType, eventDate, eventName, location, organizer, durationMinutes, feedback, req.file.path], (err, results) => {
         if (err) {
             console.error('Error executing insert query:', err);
-            // Handle the error, e.g., return an error response
             res.status(500).send('Error inserting data into the database');
         } else {
-            // Insert was successful
             console.log('Data inserted into the database');
-            // Respond to the client with a success message or redirection
             res.send('File uploaded successfully! <a href="/facultyHome.html">Go to Home</a>');
         }
     });

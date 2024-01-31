@@ -232,7 +232,8 @@ app.put('/api/editRecords/:recordId', upload.single('proofFileInput'), (req, res
 
 // Get request for handling the filters and viewing of publications
 app.get('/api/publication_records', (req, res) => {
-  let sql = 'SELECT * FROM FacultyPublications WHERE 1=1'; // Initial query
+  const QQusername = req.session.user;
+  let sql = `SELECT * FROM FacultyPublications WHERE FacultyID = '${QQusername}'`; 
 
   // Handle filters
   if (req.query.publicationType && req.query.publicationType !== 'none') {
